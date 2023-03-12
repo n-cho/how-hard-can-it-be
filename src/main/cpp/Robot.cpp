@@ -4,7 +4,9 @@
 
 #include "Robot.h"
 
-void Robot::RobotInit() {}
+void Robot::RobotInit() {
+    front_right_swerve_.encoder_.ConfigMagnetOffset(84.111328);
+}
 void Robot::RobotPeriodic() {}
 
 void Robot::AutonomousInit() {}

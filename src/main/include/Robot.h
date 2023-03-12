@@ -8,30 +8,33 @@
 
 #include "subsystems/SwerveModule.h"
 
-class Robot : public frc::TimedRobot 
-{
- private:
-  drive_train::SwerveModule front_left_swerve{drive_train::frontLeft, 1, 2, 3};
-  drive_train::SwerveModule front_right_swerve{drive_train::frontRight, 4, 5, 6};
-  drive_train::SwerveModule back_left_swerve{drive_train::backLeft, 7, 8, 9};
-  drive_train::SwerveModule back_right_swerve{drive_train::backRight, 10, 11, 12};
+class Robot : public frc::TimedRobot {
+    private:
+    // construct a swerve module like this.
+    drive_train::SwerveModule front_left_swerve_{1, 2, 3, 55.810547};
+    // or like this without the offset then ...
+    // void Robot::RobotInit() {
+    //     front_right_swerve_.encoder_.ConfigMagnetOffset(84.111328);
+    // }
+    // set it up in robot init
+    drive_train::SwerveModule front_right_swerve_{4, 5, 6};
 
- public:
-  void RobotInit() override;
-  void RobotPeriodic() override;
+    public:
+    void RobotInit() override;
+    void RobotPeriodic() override;
 
-  void AutonomousInit() override;
-  void AutonomousPeriodic() override;
+    void AutonomousInit() override;
+    void AutonomousPeriodic() override;
 
-  void TeleopInit() override;
-  void TeleopPeriodic() override;
+    void TeleopInit() override;
+    void TeleopPeriodic() override;
 
-  void DisabledInit() override;
-  void DisabledPeriodic() override;
+    void DisabledInit() override;
+    void DisabledPeriodic() override;
 
-  void TestInit() override;
-  void TestPeriodic() override;
+    void TestInit() override;
+    void TestPeriodic() override;
 
-  void SimulationInit() override;
-  void SimulationPeriodic() override;
+    void SimulationInit() override;
+    void SimulationPeriodic() override;
 };

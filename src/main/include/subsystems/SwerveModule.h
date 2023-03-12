@@ -7,30 +7,33 @@
 #include <frc/kinematics/SwerveModulePosition.h>
 #include <frc/kinematics/SwerveModuleState.h>
 #include <ctre/Phoenix.h>
+#include <numbers>
+#include <cmath>
+#include <frc/geometry/Rotation2d.h>
 
-namespace drive_train {
-    enum Corner { frontLeft, frontRight, backLeft, backRight };
-
-    class SwerveModule
-    {
+namespace drive_train
+{
+    class SwerveModule {
         public:
-            TalonFX drive_motor;
-            TalonFX steering_motor;
-            CANCoder encoder;
+        TalonFX drive_motor_;
+        TalonFX steering_motor_;
+        CANCoder encoder_;
+        
+        SwerveModule(const int& drive_motor_id, const int& steering_motor_id, const int& encoder_id);
 
-            /// @brief SwerveModule constructor. Represents one of 4 swerve modules on robot.
-            /// @param corner frontLeft or frontRight or backLeft or backRight. Used to set offsets.
-            /// @param drive_motor_id Drive Motor ID
-            /// @param steering_motor_id Steering Motor ID
-            /// @param encoder_id CANCoder ID
-            SwerveModule(Corner corner, int drive_motor_id, int steering_motor_id, int encoder_id);
-
-            frc::SwerveModuleState GetState();
+        SwerveModule(const int& drive_motor_id, const int& steering_motor_id, const int& encoder_id, const double& encoder_offset);
+        
+        frc::SwerveModuleState getState();
+        frc::SwerveModulePosition getPosition() const;
+        void setDesiredState(const frc::SwerveModuleState& state);
 
         private:
-            static constexpr double kFrontLeftEncoderOffset{55.810547};
-            static constexpr double kFrontRightEncoderOffset{84.111328};
-            static constexpr double kBackLeftEncoderOffset{56.074219};
-            static constexpr double kBackRightEncoderOffset{-116.015625};
+        units::meter_t getMetersFromSensorUnits(const double& units)
+        {
+            // (units per rotation) * (gear ratio) * (circumference) * (inches to meters)
+            // (x / 2048) * (1 / 8.14) * (4 * M_PI) * (1 / 39.37)
+            // simplified
+            return units::meter_t{units / 164081.5616 * M_PI};
+        }
     };
 }
