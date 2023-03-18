@@ -1,5 +1,5 @@
 //
-// Created by team 6364 on 2023-02-28.
+// Created by Nathan Cho on 2023-02-28.
 //
 
 #pragma once
@@ -24,16 +24,17 @@ namespace drive_train
         SwerveModule(const int& drive_motor_id, const int& steering_motor_id, const int& encoder_id, const double& encoder_offset);
         
         frc::SwerveModuleState getState();
-        frc::SwerveModulePosition getPosition() const;
+        frc::SwerveModulePosition getPosition();
         void setDesiredState(const frc::SwerveModuleState& state);
+        void setDesitedStateFromControllerOutput(); // TODO
 
         private:
-        units::meter_t getMetersFromSensorUnits(const double& units)
+        units::meter_t getMetersFromSensorUnits(const double& sensor_units)
         {
-            // (units per rotation) * (gear ratio) * (circumference) * (inches to meters)
-            // (x / 2048) * (1 / 8.14) * (4 * M_PI) * (1 / 39.37)
-            // simplified
-            return units::meter_t{units / 164081.5616 * M_PI};
+            // Math:    (units per rotation) * (gear ratio) * (circumference) * (inches to meters).
+            //          (x / 2048) * (1 / 8.14) * (4 * M_PI) * (1 / 39.37)
+            // Simplify.
+            return units::meter_t{sensor_units / 164081.5616 * M_PI};
         }
     };
 }

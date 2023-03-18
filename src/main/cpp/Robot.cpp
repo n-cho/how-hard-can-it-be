@@ -4,25 +4,32 @@
 
 #include "Robot.h"
 
-void Robot::RobotInit() {
+void Robot::RobotInit() 
+{
     front_right_swerve_.encoder_.ConfigMagnetOffset(84.111328);
 }
-void Robot::RobotPeriodic() {}
+void Robot::RobotPeriodic() 
+{
+    // Write Code Here.
+}
 
-void Robot::AutonomousInit() {}
-void Robot::AutonomousPeriodic() {}
+void Robot::AutonomousInit() 
+{
+    // Write Code Here.
+}
+void Robot::AutonomousPeriodic() 
+{
+    // Write Code Here.
+}
 
-void Robot::TeleopInit() {}
-void Robot::TeleopPeriodic() {}
-
-void Robot::DisabledInit() {}
-void Robot::DisabledPeriodic() {}
-
-void Robot::TestInit() {}
-void Robot::TestPeriodic() {}
-
-void Robot::SimulationInit() {}
-void Robot::SimulationPeriodic() {}
+void Robot::TeleopInit() 
+{
+    // Write Code Here.
+}
+void Robot::TeleopPeriodic() 
+{
+    // Write Code Here.
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main() {
