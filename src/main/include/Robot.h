@@ -20,8 +20,8 @@ class Robot : public frc::TimedRobot {
     void TeleopPeriodic() override;
 
     private:
-    drive_train::SwerveModule front_left_swerve_{3, 7, 11};
-    drive_train::SwerveModule front_right_swerve_{1, 5, 9};
-    drive_train::SwerveModule back_left_swerve_{2, 6, 10};
-    drive_train::SwerveModule back_right_swerve_{4, 8, 12};
+    SwerveModule front_left_swerve_{3, 7, 11};
+    SwerveModule front_right_swerve_{1, 5, 9};
+    SwerveModule back_left_swerve_{2, 6, 10};
+    SwerveModule back_right_swerve_{4, 8, 12};
 };

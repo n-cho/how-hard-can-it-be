@@ -11,30 +11,24 @@
 #include <cmath>
 #include <frc/geometry/Rotation2d.h>
 
-namespace drive_train
-{
-    class SwerveModule {
-        public:
-        TalonFX drive_motor_;
-        TalonFX steering_motor_;
-        CANCoder encoder_;
-        
-        SwerveModule(const int& drive_motor_id, const int& steering_motor_id, const int& encoder_id);
+class SwerveModule {
+    public:
+    TalonFX drive_motor_;
+    TalonFX steering_motor_;
+    CANCoder encoder_;
+    
+    SwerveModule(const int& drive_motor_id, const int& steering_motor_id, const int& encoder_id);
+    
+    frc::SwerveModuleState getState();
+    frc::SwerveModulePosition getPosition();
+    void setDesiredState(const frc::SwerveModuleState& state);
+    void setDesitedStateFromControllerOutput(); // TODO
 
-        SwerveModule(const int& drive_motor_id, const int& steering_motor_id, const int& encoder_id, const double& encoder_offset);
-        
-        frc::SwerveModuleState getState();
-        frc::SwerveModulePosition getPosition();
-        void setDesiredState(const frc::SwerveModuleState& state);
-        void setDesitedStateFromControllerOutput(); // TODO
-
-        private:
-        units::meter_t getMetersFromSensorUnits(const double& sensor_units)
-        {
-            // Math:    (units per rotation) * (gear ratio) * (circumference) * (inches to meters).
-            //          (x / 2048) * (1 / 8.14) * (4 * M_PI) * (1 / 39.37)
-            // Simplify.
-            return units::meter_t{sensor_units / 164081.5616 * M_PI};
-        }
-    };
-}
+    private:
+    units::meter_t sensorUnitsToMeters(const double& sensor_units)
+    {
+        // Math:    (units per rotation) * (gear ratio) * (circumference) * (inches to meters).
+        //          (sensor_units / 2048) * (1 / 8.14) * (4 * pi) * (1 / 39.37)
+        return units::meter_t{(sensor_units / 2048) * (1 / 8.14) * (4 * M_PI) * (1 / 39.37)};
+    }
+};
