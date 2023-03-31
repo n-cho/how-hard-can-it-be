@@ -8,8 +8,9 @@
 
 #include "subsystems/SwerveModule.h"
 
-class Robot : public frc::TimedRobot {
-    public:
+class Robot : public frc::TimedRobot
+{
+  public:
     void RobotInit() override;
     void RobotPeriodic() override;
 
@@ -19,7 +20,7 @@ class Robot : public frc::TimedRobot {
     void TeleopInit() override;
     void TeleopPeriodic() override;
 
-    private:
+  private:
     SwerveModule front_left_swerve_{3, 7, 11};
     SwerveModule front_right_swerve_{1, 5, 9};
     SwerveModule back_left_swerve_{2, 6, 10};
